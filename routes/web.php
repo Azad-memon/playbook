@@ -20,7 +20,7 @@ use App\Http\Controllers\poster\HomeController;
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/maintenance', [MaintenanceController::class, 'index'])->name('maintenance');
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [LoginController::class, 'index'])->name('login');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
