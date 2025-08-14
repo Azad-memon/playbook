@@ -47,7 +47,7 @@
 
     $("#custom_modal_title").text(title);
     $(".custom_modal").modal("show");
-console.log('heree'+ url);
+
     if (url) {
         try {
             let response = await $.get(url);

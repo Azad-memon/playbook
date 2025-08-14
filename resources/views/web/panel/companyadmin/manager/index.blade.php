@@ -27,93 +27,103 @@
     .dropdown-menu {
     z-index: 1055 !important;
     }
+    .buttons-excel{
+        margin-right: 15px;
+    }
+    #datatable-buttons_paginate{
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
 </style>
 @endpush
 
 @section('body_container')
-<div class="container">
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+    <div class="row">
+        <div class="card">
+        <div class="row" style="width:100%">
+            <div class="col-md-12 text-center">
 
-    {{-- Add Company Button --}}
-    {{-- <button  class="btn btn-primary" data-open-modal data-modal-title="Add Company" data-url="{{ route('admin.company-manager.add-form',['company_id' => $company_id]) }}">
-    Add Manager
-    </button> --}}
+                <a href="#" data-open-modal data-modal-title="Add Manager" data-url="{{ route('admin.company-manager.add-form',['company_id' => $company_id]) }}" class="btn btn-info mt-3 mb-3 me-3">
+                    <i class="mdi mdi-shape-rectangle-plus"></i>
+                    <b> Add Manager </b>
+                </a>
+            </div>
+        </div>
 
-    {{-- Company Table --}}
-    <table id="company-managers-table" class="table table-bordered dt-responsive nowrap">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Description</th>
-                <th>Logo</th>
-                <th>Invitation</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+            <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Description</th>
+                        <th>Logo</th>
+                        <th>Invitation</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-            @forelse($managers as $manager)
-                <tr data-id="{{ $manager->id }}"
-                    data-name="{{ $manager->name }}"
-                    data-email="{{ $manager->email }}"
-                    data-description="{{ $manager->description }}"
-                    data-logo="{{ $manager->logo }}">
-                    <td>{{ $manager->name }}</td>
-                    <td>{{ $manager->email }}</td>
-                    <td>{{ $manager->description }}</td>
-                    <td>
-                        @if($manager->logo)
-                        <div class="custom-image-container">
-                            <a class="image-popup-no-margins" href="{{ asset('storage/' . $manager->logo) }}">
-                            <img src="{{ asset('storage/' . $manager->logo) }}" width="50" alt="Logo" class="custom-img-responsive">
-                             </a>
-                        </div>
-                        @endif
-                    </td>
-                    <td>
-                         @if($manager->accepted_at == null)
-                           <span class="badge badge-warning">Pending</span>
-                        @else
-                            <span class="badge badge-success">Accepted</span>
-                        @endif
-                    </td>
-                   <td>
-                      <div class="dropdown" data-bs-display="static">
-                        <button class="btn btn-xs btn-primary dropdown-toggle" type="button" id="companyActionsDropdown{{ $manager->id }}" data-bs-toggle="dropdown" aria-expanded="false">
-                            Actions
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="companyActionsDropdown{{ $manager->id }}">
-                            <li>
-                                <button type="button"
-                                    class="dropdown-item edit-company"
-                                    data-open-modal
-                                    data-modal-title="Edit Company"
-                                    data-url="{{ route('admin.company-manager.edit-form', ['id' => $manager->id]) }}">
-                                    Edit
+                    @forelse($managers as $manager)
+                        <tr data-id="{{ $manager->id }}"
+                            data-name="{{ $manager->name }}"
+                            data-email="{{ $manager->email }}"
+                            data-description="{{ $manager->description }}"
+                            data-logo="{{ $manager->logo }}">
+                            <td>{{ $manager->name }}</td>
+                            <td>{{ $manager->email }}</td>
+                            <td>{{ $manager->description }}</td>
+                            <td>
+                                @if($manager->logo)
+                                <div class="custom-image-container">
+                                    <a class="image-popup-no-margins" href="{{ asset('storage/' . $manager->logo) }}">
+                                    <img src="{{ asset('storage/' . $manager->logo) }}" width="50" alt="Logo" class="custom-img-responsive">
+                                    </a>
+                                </div>
+                                @endif
+                            </td>
+                            <td>
+                                @if($manager->accepted_at == null)
+                                <span class="badge badge-warning">Pending</span>
+                                @else
+                                    <span class="badge badge-success">Accepted</span>
+                                @endif
+                            </td>
+                        <td>
+                            <div class="dropdown" data-bs-display="static">
+                                <button class="btn btn-xs btn-primary dropdown-toggle" type="button" id="companyActionsDropdown{{ $manager->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
                                 </button>
-                            </li>
-                            <li>
-                                <form action="{{ route('admin.manager.destroy', $manager->id) }}" method="POST"
-                                    onsubmit="return confirm('Are you sure you want to delete this company?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="dropdown-item text-danger">
-                                        Delete
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                       </td>
-                      </tr>
-                @empty
-             @endforelse
-        </tbody>
-    </table>
-</div>
+                                <ul class="dropdown-menu" aria-labelledby="companyActionsDropdown{{ $manager->id }}">
+                                    <li>
+                                        <button type="button"
+                                            class="dropdown-item edit-company"
+                                            data-open-modal
+                                            data-modal-title="Edit Company"
+                                            data-url="{{ route('admin.company-manager.edit-form', ['id' => $manager->id]) }}">
+                                            Edit
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <form action="{{ route('admin.manager.destroy', $manager->id) }}" method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this company?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="dropdown-item text-danger">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                            </td>
+                            </tr>
+                        @empty
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
 {{-- Modal Script --}}
 @push('custom-scripts')
@@ -138,24 +148,7 @@
     @include('web.panel.includes.super_admin_scripts')
 <script>
 $(document).ready(function() {
-    var table = $('#company-managers-table').DataTable({
-        destroy: true,
-        dom: '<"manager-header d-flex justify-content-between align-items-center mb-3"f>rt<"bottom"ip>',
-        lengthChange: false
-    });
-    var $wrapper = $('#company-managers-table_wrapper');
-    $wrapper.find('.manager-header').addClass('w-100');
-    var $filter = $wrapper.find('.dataTables_filter')
-        .addClass('mb-0')
-        .css('margin-left', 'auto');
-     $wrapper.find('.add-manager-btn').remove();
-
-    $filter.before(
-        '<button type="button" class="btn btn-primary me-2 add-manager-btn" ' +
-        'data-open-modal data-modal-title="Add Manager" ' +
-        'data-url="{{ route('admin.company-manager.add-form',['company_id' => $company_id]) }}">' +
-        'Add Manager</button>'
-    );
+   applyDataTables();
 });
 
 </script>

@@ -27,22 +27,30 @@
     .dropdown-menu {
     z-index: 1055 !important;
     }
+    .buttons-excel{
+        margin-right: 15px;
+    }
+    #datatable-buttons_paginate{
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
 </style>
 @endpush
 
 @section('body_container')
-<div class="container">
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+<div class="row">
+    <div class="card">
+        <div class="row" style="width:100%">
+            <div class="col-md-12 text-center">
 
-    {{-- Add Company Button --}}
-    {{-- <button  class="btn btn-primary" data-open-modal data-modal-title="Add Employee" data-url="{{ route('admin.company-employee.add-form',['company_id' => $company_id]) }}">
-    Add Employee
-</button> --}}
-
+                <a href="#" data-open-modal data-modal-title="Add Employee" data-url="{{ route('admin.company-employee.add-form',['company_id' => $company_id]) }}" class="btn btn-info mt-3 mb-3 me-3">
+                    <i class="mdi mdi-shape-rectangle-plus"></i>
+                    <b> Add Employee </b>
+                </a>
+            </div>
+        </div>
     {{-- Company Table --}}
-    <table id="company-employees-table" class="table table-bordered dt-responsive nowrap">
+    <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap">
         <thead>
             <tr>
                 <th>Name</th>
@@ -113,6 +121,7 @@
              @endforelse
         </tbody>
     </table>
+   </div>
 </div>
 
 {{-- Modal Script --}}
@@ -138,6 +147,7 @@
     @include('web.panel.includes.super_admin_scripts')
 <script>
 $(document).ready(function() {
+    applyDataTables();
     var table = $('#company-employees-table').DataTable({
         destroy: true,
         dom: '<"employee-header d-flex justify-content-between align-items-center mb-3"f>rt<"bottom"ip>',

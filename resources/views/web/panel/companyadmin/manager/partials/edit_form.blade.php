@@ -1,4 +1,4 @@
-<form action="{{ route('admin.employee.update', $manager->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
+<form action="{{ route('admin.manager.update', $manager->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
     @csrf
     @method('PUT')
 

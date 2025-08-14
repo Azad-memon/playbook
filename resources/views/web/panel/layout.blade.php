@@ -32,6 +32,7 @@
             @include('web.panel.includes.sidebar',['user' => $user])
             <div class="page-body">
                  <x-breadcrumb :breadcrumb="$breadcrumb" :title="$pageTitle" />
+                 @include('web.includes.es_msg')
                 @section('body_container')
 
                 @show

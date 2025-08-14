@@ -27,22 +27,35 @@
     .dropdown-menu {
     z-index: 1055 !important;
     }
+     .buttons-excel{
+        margin-right: 15px;
+    }
+    #datatable-buttons_paginate{
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
 </style>
 @endpush
 
 @section('body_container')
-<div class="container">
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
+<div class="row">
     {{-- Add Company Button --}}
     {{-- <button  class="btn btn-primary" data-open-modal data-modal-title="Add Company" data-url="{{ route('superadmin.company.add-form') }}">
     Add Company
 </button> --}}
+    <div class="card">
+        <div class="row" style="width:100%">
+            <div class="col-md-12 text-center">
+
+                <a href="#" data-open-modal data-modal-title="Add Company" data-url="{{ route('superadmin.company.add-form')}}" class="btn btn-info mt-3 mb-3 me-3">
+                    <i class="mdi mdi-shape-rectangle-plus"></i>
+                    <b> Add Company </b>
+                </a>
+            </div>
+        </div>
 
     {{-- Company Table --}}
-    <table id="companies-table" class="table table-bordered dt-responsive nowrap">
+    <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap">
         <thead>
             <tr>
                 <th>Name</th>
@@ -96,18 +109,6 @@
                                     Edit
                                 </button>
                             </li>
-                            {{-- <li>
-                                <a href="{{ route('superadmin.company.managers', ['id' => $company->id]) }}"
-                                class="dropdown-item">
-                                Add Manager
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('superadmin.company.employees', ['id' => $company->id]) }}"
-                                class="dropdown-item">
-                                Add Employee
-                                </a>
-                            </li> --}}
                             <li>
                                 <form action="{{ route('superadmin.company.destroy', $company->id) }}" method="POST"
                                     onsubmit="return confirm('Are you sure you want to delete this company?');">
@@ -126,6 +127,7 @@
             @endforeach
         </tbody>
     </table>
+    </div>
 </div>
 
 {{-- Modal Script --}}
@@ -151,19 +153,8 @@
     @include('web.panel.includes.super_admin_scripts')
 <script>
 $(document).ready(function() {
-    var table = $('#companies-table').DataTable({
-        destroy: true,
-        dom: '<"table-header d-flex justify-content-between align-items-center mb-3"f>rt<"bottom"ip>',
-        lengthChange: false
-    });
-  $('#companies-table_wrapper .table-header')
-        .addClass('w-100');
-    $('#companies-table_wrapper .dataTables_filter')
-        .addClass('mb-0') // remove default margin
-        .css('margin-left', 'auto') // push to right
-        .before(
-            '<button class="btn btn-primary me-2" data-open-modal data-modal-title="Add Company" data-url="{{ route('superadmin.company.add-form') }}">Add Company</button>'
-        );
+    applyDataTables();
+
 });
 
 </script>
