@@ -37,9 +37,9 @@
     @endif
 
     {{-- Add Company Button --}}
-    <button  class="btn btn-primary" data-open-modal data-modal-title="Add Company" data-url="{{ route('superadmin.company.add-form') }}">
+    {{-- <button  class="btn btn-primary" data-open-modal data-modal-title="Add Company" data-url="{{ route('superadmin.company.add-form') }}">
     Add Company
-</button>
+</button> --}}
 
     {{-- Company Table --}}
     <table id="companies-table" class="table table-bordered dt-responsive nowrap">
@@ -67,7 +67,11 @@
                     <td>{{ $company->description }}</td>
                     <td>
                         @if($company->logo)
-                            <img src="{{ asset('storage/' . $company->logo) }}" width="50" alt="Logo">
+                        <div class="custom-image-container">
+                            <a class="image-popup-no-margins" href="{{ asset('storage/' . $company->logo) }}">
+                            <img src="{{ asset('storage/' . $company->logo) }}" width="50" alt="Logo" class="custom-img-responsive">
+                            </a>
+                        </div>
                         @endif
                     </td>
                     <td>
@@ -143,14 +147,23 @@
     <!-- Magnific popup -->
     <script src="{{ URL::asset('panel/assets/libs/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
     <script src="{{ URL::asset('panel/assets/libs/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ URL::asset('panel/assets/js/lightbox.js') }}"></script>
     @include('web.panel.includes.super_admin_scripts')
 <script>
 $(document).ready(function() {
-    // manageUsers();
     var table = $('#companies-table').DataTable({
-        destroy : true
-        });
-
+        destroy: true,
+        dom: '<"table-header d-flex justify-content-between align-items-center mb-3"f>rt<"bottom"ip>',
+        lengthChange: false
+    });
+  $('#companies-table_wrapper .table-header')
+        .addClass('w-100');
+    $('#companies-table_wrapper .dataTables_filter')
+        .addClass('mb-0') // remove default margin
+        .css('margin-left', 'auto') // push to right
+        .before(
+            '<button class="btn btn-primary me-2" data-open-modal data-modal-title="Add Company" data-url="{{ route('superadmin.company.add-form') }}">Add Company</button>'
+        );
 });
 
 </script>

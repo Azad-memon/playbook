@@ -37,9 +37,9 @@
     @endif
 
     {{-- Add Company Button --}}
-    <button  class="btn btn-primary" data-open-modal data-modal-title="Add Company" data-url="{{ route('admin.company-manager.add-form',['company_id' => $company_id]) }}">
+    {{-- <button  class="btn btn-primary" data-open-modal data-modal-title="Add Company" data-url="{{ route('admin.company-manager.add-form',['company_id' => $company_id]) }}">
     Add Manager
-</button>
+    </button> --}}
 
     {{-- Company Table --}}
     <table id="company-managers-table" class="table table-bordered dt-responsive nowrap">
@@ -66,7 +66,11 @@
                     <td>{{ $manager->description }}</td>
                     <td>
                         @if($manager->logo)
-                            <img src="{{ asset('storage/' . $manager->logo) }}" width="50" alt="Logo">
+                        <div class="custom-image-container">
+                            <a class="image-popup-no-margins" href="{{ asset('storage/' . $manager->logo) }}">
+                            <img src="{{ asset('storage/' . $manager->logo) }}" width="50" alt="Logo" class="custom-img-responsive">
+                             </a>
+                        </div>
                         @endif
                     </td>
                     <td>
@@ -130,14 +134,28 @@
     <!-- Magnific popup -->
     <script src="{{ URL::asset('panel/assets/libs/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
     <script src="{{ URL::asset('panel/assets/libs/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ URL::asset('panel/assets/js/lightbox.js') }}"></script>
     @include('web.panel.includes.super_admin_scripts')
 <script>
 $(document).ready(function() {
-    // manageUsers();
     var table = $('#company-managers-table').DataTable({
-        destroy : true
-        });
+        destroy: true,
+        dom: '<"manager-header d-flex justify-content-between align-items-center mb-3"f>rt<"bottom"ip>',
+        lengthChange: false
+    });
+    var $wrapper = $('#company-managers-table_wrapper');
+    $wrapper.find('.manager-header').addClass('w-100');
+    var $filter = $wrapper.find('.dataTables_filter')
+        .addClass('mb-0')
+        .css('margin-left', 'auto');
+     $wrapper.find('.add-manager-btn').remove();
 
+    $filter.before(
+        '<button type="button" class="btn btn-primary me-2 add-manager-btn" ' +
+        'data-open-modal data-modal-title="Add Manager" ' +
+        'data-url="{{ route('admin.company-manager.add-form',['company_id' => $company_id]) }}">' +
+        'Add Manager</button>'
+    );
 });
 
 </script>

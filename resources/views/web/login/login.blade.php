@@ -91,10 +91,10 @@
                                 @endif
 
                                 <!-- Register link -->
-                                <p class="mt-4 mb-0 text-center">
+                                {{-- <p class="mt-4 mb-0 text-center">
                                     Don't have an account?
                                     <a class="ms-2" href="{{ route('register') }}">Create Account</a>
-                                </p>
+                                </p> --}}
                             </form>
                         </div>
                     </div>

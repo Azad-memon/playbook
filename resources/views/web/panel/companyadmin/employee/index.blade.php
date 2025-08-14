@@ -37,9 +37,9 @@
     @endif
 
     {{-- Add Company Button --}}
-    <button  class="btn btn-primary" data-open-modal data-modal-title="Add Employee" data-url="{{ route('admin.company-employee.add-form',['company_id' => $company_id]) }}">
+    {{-- <button  class="btn btn-primary" data-open-modal data-modal-title="Add Employee" data-url="{{ route('admin.company-employee.add-form',['company_id' => $company_id]) }}">
     Add Employee
-</button>
+</button> --}}
 
     {{-- Company Table --}}
     <table id="company-employees-table" class="table table-bordered dt-responsive nowrap">
@@ -66,7 +66,11 @@
                     <td>{{ $employee->description }}</td>
                     <td>
                         @if($employee->logo)
+                        <div class="custom-image-container">
+                            <a class="image-popup-no-margins" href="{{ asset('storage/' . $employee->logo) }}">
                             <img src="{{ asset('storage/' . $employee->logo) }}" width="50" alt="Logo">
+                             </a>
+                        </div>
                         @endif
                     </td>
                     <td>
@@ -130,14 +134,28 @@
     <!-- Magnific popup -->
     <script src="{{ URL::asset('panel/assets/libs/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
     <script src="{{ URL::asset('panel/assets/libs/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ URL::asset('panel/assets/js/lightbox.js') }}"></script>
     @include('web.panel.includes.super_admin_scripts')
 <script>
 $(document).ready(function() {
-    // manageUsers();
     var table = $('#company-employees-table').DataTable({
-        destroy : true
-        });
+        destroy: true,
+        dom: '<"employee-header d-flex justify-content-between align-items-center mb-3"f>rt<"bottom"ip>',
+        lengthChange: false
+    });
+    var $wrapper = $('#company-employees-table_wrapper');
+    $wrapper.find('.employee-header').addClass('w-100');
+    var $filter = $wrapper.find('.dataTables_filter')
+        .addClass('mb-0')
+        .css('margin-left', 'auto');
+    $wrapper.find('.add-employee-btn').remove();
 
+    $filter.before(
+        '<button type="button" class="btn btn-primary me-2 add-employee-btn" ' +
+        'data-open-modal data-modal-title="Add Employee" ' +
+        'data-url="{{ route('admin.company-employee.add-form',['company_id' => $company_id]) }}">' +
+        'Add Employee</button>'
+    );
 });
 
 </script>
