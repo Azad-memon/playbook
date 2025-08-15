@@ -60,17 +60,34 @@
                     </div>
                 </li>
                 <li class="profile-nav onhover-dropdown pe-0 py-0">
-                    <div class="media profile-media">
-                        <img class="b-r-10" src="{{ URL::asset('panel/assets/images/dashboard/profile.png') }}"
-                            alt="">
-                        <div class="media-body">
-                            <span>{{ ucwords(Auth::user()->name) }}</span>
-                            <p class="mb-0 font-roboto">{{ Auth::user()->email }} <i
-                                    class="middle fa fa-angle-down"></i></p>
+                    <div class="media profile-media align-items-center">
+                        <img src="{{ Auth::user()->logo
+                                    ? asset('storage/' . Auth::user()->logo)
+                                    : 'https://med.gov.bz/wp-content/uploads/2020/08/dummy-profile-pic.jpg' }}"
+                            alt="Profile"
+                            class="rounded-circle border"
+                            style="width: 45px; height: 45px; object-fit: cover;">
+
+                        <div class="media-body ms-2">
+                            <span class="fw-bold">{{ ucwords(Auth::user()->name) }}</span>
+                            <p class="mb-0 font-roboto">
+                                {{ Auth::user()->email }}
+                                <i class="middle fa fa-angle-down"></i>
+                            </p>
                         </div>
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
-                        <li><a href="#"><i data-feather="user"></i><span>Profile </span></a></li>
+                        <li>
+                            <a href="{{
+                                     Auth::check() && Auth::user()->hasRole->slug == 'super-admin' ? url('superadmin/profile/edit') :
+                                    (Auth::check() && Auth::user()->hasRole->slug == 'company-admin' ? url('admin/profile/edit') :
+                                    (Auth::check() && Auth::user()->hasRole->slug == 'manager' ? url('manager/profile/edit') :
+                                    (Auth::check() && Auth::user()->hasRole->slug == 'employee' ? url('employee/profile/edit') : '#')))
+                                }}">
+                                <i data-feather="user"></i>
+                                <span>Profile</span>
+                            </a>
+                        </li>
                         <li><a href="#"><i data-feather="mail"></i><span>Inbox</span></a></li>
                         <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li>
                         <li>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('email')->unique();
             $table->text('description')->nullable();
+            $table->string('status')->nullable();
             $table->string('admin_invitation_accepted')->default('no');
             $table->softDeletes();
             $table->timestamps();

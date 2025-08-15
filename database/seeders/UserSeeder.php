@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             "phone_number" => 11111111,
             'email' => 'superadmin@yopmail.com',
             'password' => Hash::make('password'),
-            'user_type' => 0,
+            'status' => 1,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

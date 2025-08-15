@@ -9,7 +9,7 @@
                     (Auth::check() && Auth::user()->hasRole->slug == 'employee' ? url('employee/dashboard') : '#')))
                 }}">
                 <img class="img-fluid "src="{{ URL::asset('panel/assets/images/logo/playbook-logo.png') }}" alt="" style="position: relative;bottom:75px">
-            </a>
+              </a>
             <div class="back-btn"><i class="fa fa-angle-left"></i></div>
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
         </div>
@@ -19,7 +19,6 @@
             <div id="sidebar-menu">
                 <ul class="sidebar-links" id="simple-bar">
                     <li class="back-btn">
-
                         <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2"
                                 aria-hidden="true"></i></div>
                     </li>

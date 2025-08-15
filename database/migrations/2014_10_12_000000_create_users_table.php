@@ -16,12 +16,15 @@ return new class extends Migration {
             $table->integer('company_id')->nullable();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('department')->nullable();
+            $table->string('line_manager')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('logo')->nullable();
             $table->string('description')->nullable();
             $table->string('password');
-            $table->tinyInteger('user_type')->default(1);
+            $table->timestamp('email_verified_at')->nullable();
+            $table->tinyInteger('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

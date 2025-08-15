@@ -17,3 +17,8 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('company-employee/edit-form/{id}', [AdminController::class, 'companyEmployeeEditForm'])
         ->name('company-employee.edit-form');
 });
+
+// profile
+Route::get('employee/profile/edit', [EmployeeController::class, 'editProfile'])->name('employee.profile.edit');
+ Route::post('employee/profile/update', [EmployeeController::class, 'updateProfile'])->name('employee.profile.update');
+

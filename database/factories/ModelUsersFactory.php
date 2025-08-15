@@ -29,7 +29,7 @@ class ModelUsersFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'phone_number' => "123456",
             'remember_token' => Str::random(10),
-            'user_type' => 1,
+            'status' => 1,
         ];
     }
 

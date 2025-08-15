@@ -22,10 +22,10 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="userMenu">
                         <li>
-                            <a class="dropdown-item text-primary fw-semibold"
+                            {{-- <a class="dropdown-item text-primary fw-semibold"
                                 href="{{ Auth::user()->user_type == 0 ? route('superadmin.dashboard') : '#' }}">
                                 Dashboard
-                            </a>
+                            </a> --}}
                         </li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">

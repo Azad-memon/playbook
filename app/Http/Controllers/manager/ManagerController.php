@@ -16,6 +16,45 @@ class ManagerController extends Controller
         $this->userRepo = $userRepo;
     }
 
+         // Profile
+    public function editProfile()
+    {
+        $user = auth()->user();
+        $pageTitle = "Edit Profile";
+        $breadcrumb = array("active" => "Dashboard", 'home' => route('admin.dashboard'));
+        return view('web.panel.manager.profile.edit', compact('user','breadcrumb','pageTitle'));
+    }
+
+     public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+
+            $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'designation' => 'nullable|string|max:255',
+            'department' => 'nullable|string|max:255',
+            'line_manager' => 'nullable|string|max:255',
+            'logo' => 'nullable|image|max:2048',
+            'description' => 'nullable|string',
+            'password' => 'nullable|confirmed|min:6'
+        ]);
+        // Force email to remain unchanged
+        $validated['email'] = $user->email;
+        if ($request->hasFile('logo')) {
+            $validated['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+
+        if (!empty($validated['password'])) {
+            $validated['password'] = bcrypt($validated['password']);
+        } else {
+            unset($validated['password']);
+        }
+
+        $user->update($validated);
+
+        return redirect()->back()->with('success', 'Profile updated successfully.');
+    }
+
     public function index()
     {
         $user = Auth::user();

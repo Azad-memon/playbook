@@ -13,6 +13,10 @@ Route::group(['middleware' => ['auth', 'user.role:super-admin']], function () {
    Route::get('company/add-form', [SuperAdminController::class, 'addForm'])->name('company.add-form');
    Route::get('company/edit-form/{id}', [SuperAdminController::class, 'editForm'])->name('company.edit-form');
 
+  // profile
+    Route::get('profile/edit', [SuperAdminController::class, 'editProfile'])->name('profile.edit');
+    Route::post('profile/update', [SuperAdminController::class, 'updateProfile'])->name('profile.update');
+
 
 });
 
