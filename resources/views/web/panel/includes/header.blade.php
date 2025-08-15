@@ -8,7 +8,7 @@
         $currentPath = request()->path();
     @endphp
 
-    <title>Konrad - {{ $currentPath === 'maintenance' ? 'Maintenance' : $pageTitle ?? 'Dashboard' }}</title>
+    <title>Playbook OS - {{ $currentPath === 'maintenance' ? 'Maintenance' : $pageTitle ?? 'Dashboard' }}</title>
 
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap"

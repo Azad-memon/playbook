@@ -2,8 +2,14 @@
 <div class="sidebar-wrapper" sidebar-layout="stroke-svg">
     <div>
         <div class="logo-wrapper">
-              <a href="{{ Auth::check() && Auth::user()->user_type == 0 ? route('dashboard') : '#' }}"><img class="img-fluid "
-                    src="{{ URL::asset('panel/assets/images/logo/logo_dark.png') }}" alt=""></a>
+              <a href="{{
+                    Auth::check() && Auth::user()->hasRole->slug == 'super-admin' ? url('superadmin') :
+                    (Auth::check() && Auth::user()->hasRole->slug == 'company-admin' ? url('admin/dashboard') :
+                    (Auth::check() && Auth::user()->hasRole->slug == 'manager' ? url('manager/dashboard') :
+                    (Auth::check() && Auth::user()->hasRole->slug == 'employee' ? url('employee/dashboard') : '#')))
+                }}">
+                <img class="img-fluid "src="{{ URL::asset('panel/assets/images/logo/playbook-logo.png') }}" alt="" style="position: relative;bottom:75px">
+            </a>
             <div class="back-btn"><i class="fa fa-angle-left"></i></div>
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
         </div>

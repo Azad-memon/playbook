@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-xl-7">
                 <img class="bg-img-cover bg-center"
-                     src="{{ URL::asset('panel/assets/images/login/2.jpg') }}" alt="login page">
+                     src="{{ URL::asset('panel/assets/images/login/4.jpg') }}" alt="login page">
             </div>
             <div class="col-xl-5 p-0">
                 <div class="login-card">
@@ -27,7 +27,7 @@
                         <div class="text-center d-flex justify-content-center">
                             <a class="logo text-start">
                                 <img class="img-fluid for-light"
-                                     src="{{ URL::asset('panel/assets/images/logo/logo_dark.png') }}"
+                                     src="{{ URL::asset('panel/assets/images/logo/playbook-logo.png') }}"
                                      width="170" alt="login page">
                             </a>
                         </div>
